@@ -48,8 +48,14 @@
             this.listBox1 = new System.Windows.Forms.ListBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.checkBox1 = new System.Windows.Forms.CheckBox();
+            this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.listBox2 = new System.Windows.Forms.ListBox();
+            this.PauseBtn = new System.Windows.Forms.Button();
+            this.AmazonBtn = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
+            this.groupBox3.SuspendLayout();
             this.SuspendLayout();
             // 
             // webBrowser1
@@ -138,7 +144,7 @@
             // 
             this.startBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.startBtn.ForeColor = System.Drawing.Color.ForestGreen;
-            this.startBtn.Location = new System.Drawing.Point(1118, 4);
+            this.startBtn.Location = new System.Drawing.Point(1157, 3);
             this.startBtn.Name = "startBtn";
             this.startBtn.Size = new System.Drawing.Size(75, 23);
             this.startBtn.TabIndex = 11;
@@ -154,9 +160,9 @@
             this.label4.ForeColor = System.Drawing.Color.RoyalBlue;
             this.label4.Location = new System.Drawing.Point(997, 9);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(120, 13);
+            this.label4.Size = new System.Drawing.Size(59, 13);
             this.label4.TabIndex = 12;
-            this.label4.Text = "NewAgeSoldier.com";
+            this.label4.Text = "Bing.com";
             this.label4.Click += new System.EventHandler(this.label4_Click);
             // 
             // notesBox
@@ -168,8 +174,8 @@
             this.notesBox.Size = new System.Drawing.Size(490, 21);
             this.notesBox.TabIndex = 10;
             this.notesBox.Text = "If you see windows login page, do not fill it in or login. The system will login " +
-                "itself. The search results will come up with 0 results most of the time. Ignore " +
-                "this, this still counts as a search.";
+    "itself. The search results will come up with 0 results most of the time. Ignore " +
+    "this, this still counts as a search.";
             // 
             // closeTimer
             // 
@@ -210,11 +216,68 @@
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Browser";
             // 
+            // checkBox1
+            // 
+            this.checkBox1.AutoSize = true;
+            this.checkBox1.Checked = true;
+            this.checkBox1.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.checkBox1.Location = new System.Drawing.Point(219, 533);
+            this.checkBox1.Name = "checkBox1";
+            this.checkBox1.Size = new System.Drawing.Size(151, 17);
+            this.checkBox1.TabIndex = 16;
+            this.checkBox1.Text = "Randomize Account Order";
+            this.checkBox1.UseVisualStyleBackColor = true;
+            // 
+            // groupBox3
+            // 
+            this.groupBox3.Controls.Add(this.listBox2);
+            this.groupBox3.Location = new System.Drawing.Point(13, 533);
+            this.groupBox3.Name = "groupBox3";
+            this.groupBox3.Size = new System.Drawing.Size(194, 64);
+            this.groupBox3.TabIndex = 17;
+            this.groupBox3.TabStop = false;
+            this.groupBox3.Text = "Amazon Account";
+            // 
+            // listBox2
+            // 
+            this.listBox2.FormattingEnabled = true;
+            this.listBox2.Location = new System.Drawing.Point(6, 19);
+            this.listBox2.Name = "listBox2";
+            this.listBox2.Size = new System.Drawing.Size(182, 30);
+            this.listBox2.TabIndex = 0;
+            // 
+            // PauseBtn
+            // 
+            this.PauseBtn.ForeColor = System.Drawing.Color.Red;
+            this.PauseBtn.Location = new System.Drawing.Point(1076, 4);
+            this.PauseBtn.Name = "PauseBtn";
+            this.PauseBtn.Size = new System.Drawing.Size(75, 23);
+            this.PauseBtn.TabIndex = 18;
+            this.PauseBtn.Text = "PAUSE";
+            this.PauseBtn.UseVisualStyleBackColor = true;
+            this.PauseBtn.Click += new System.EventHandler(this.PauseBtn_Click);
+            // 
+            // AmazonBtn
+            // 
+            this.AmazonBtn.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.AmazonBtn.Font = new System.Drawing.Font("Stencil", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.AmazonBtn.ForeColor = System.Drawing.Color.LimeGreen;
+            this.AmazonBtn.Location = new System.Drawing.Point(1238, 3);
+            this.AmazonBtn.Name = "AmazonBtn";
+            this.AmazonBtn.Size = new System.Drawing.Size(95, 23);
+            this.AmazonBtn.TabIndex = 19;
+            this.AmazonBtn.Text = "$$NIGGA$$";
+            this.AmazonBtn.UseVisualStyleBackColor = false;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1199, 522);
+            this.ClientSize = new System.Drawing.Size(1369, 822);
+            this.Controls.Add(this.AmazonBtn);
+            this.Controls.Add(this.PauseBtn);
+            this.Controls.Add(this.groupBox3);
+            this.Controls.Add(this.checkBox1);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.label4);
@@ -234,6 +297,7 @@
             this.Load += new System.EventHandler(this.Form1_Load);
             this.groupBox1.ResumeLayout(false);
             this.groupBox2.ResumeLayout(false);
+            this.groupBox3.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -259,6 +323,11 @@
         private System.Windows.Forms.ListBox listBox1;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.GroupBox groupBox2;
+        private System.Windows.Forms.CheckBox checkBox1;
+        private System.Windows.Forms.GroupBox groupBox3;
+        private System.Windows.Forms.ListBox listBox2;
+        private System.Windows.Forms.Button PauseBtn;
+        private System.Windows.Forms.Button AmazonBtn;
     }
 }
 

@@ -18,6 +18,7 @@ namespace bingRewards
 {
     public partial class Form1 : Form
     {
+        private bool shutThisShitDown = false;
         private string username;
         private string password;
         private int countDown = 0;
@@ -109,7 +110,7 @@ namespace bingRewards
 
             // Set the first letter of the first word in the sentenece to uppercase
             if (wordCount >= 4)
-                sentence = char.ToUpper(sentence[0]) + sentence.Substring(1) + ".";
+                sentence = char.ToUpper(sentence[0]) + sentence.Substring(1) ;
 
             builder = new StringBuilder();
             builder.Append(sentence);
@@ -196,11 +197,16 @@ namespace bingRewards
             if (mobile)
             {
                 webBrowser1.Navigate(searchURL + query, null, null, "User-Agent: Mozilla/5.0 (Linux; U; Android 2.2; en-gb; LG-P500 Build/FRF91) AppleWebKit/533.0 (KHTML, like Gecko) Version/4.0 Mobile Safari/533.1");
+
+                
+
                 if (countDown == 1) //We're on our last search. Reset to desktop.
                     mobile = false;
             } 
-            else
+            else {
                 webBrowser1.Navigate(searchURL + query, null, null, "User-Agent: Mozilla/5.0 (compatible; MSIE 6.0; Windows NT 5.1)");
+                //clickshit();
+            }
 
             if (webBrowser1.Url.ToString().Contains(@"?q="))
                 countDown = countDown - 1;
@@ -255,7 +261,8 @@ namespace bingRewards
             if (countDown >= 1)
                 searchTimer.Enabled = true;
             else
-                ReadAccounts(accountNum);
+                if(shutThisShitDown == false)
+                    ReadAccounts(accountNum);
         }
 
         private void startTimer_Tick(object sender, EventArgs e)
@@ -270,7 +277,7 @@ namespace bingRewards
                 accountNum = numAccountsList[r];
                 numAccountsList.Remove(accountNum);
             }
-            else
+            else if (checkBox1.Checked == true)
             {
                 if (fileExists(settingsFile) && Convert.ToInt32(ReadSettings("settings", "autoclose")) >= 1)
                 {
@@ -280,7 +287,7 @@ namespace bingRewards
                     accountNum = 9001;
                     
             }
-            //accountNum = accountNum + 1; //next account
+            accountNum = accountNum + 1; //next account
         }
 
         private void searchTimer_Tick(object sender, EventArgs e)
@@ -294,16 +301,19 @@ namespace bingRewards
 
         private void startBtn_Click(object sender, EventArgs e)
         {
-            createListOfAccountNumbers();
-            int r = randomNumber(0, numAccountsList.Count - 1);
-            accountNum = numAccountsList[r];
-            numAccountsList.Remove(accountNum);
+            if (checkBox1.Checked == true)
+            { 
+                createListOfAccountNumbers();
+                int r = randomNumber(0, numAccountsList.Count - 1);
+                accountNum = numAccountsList[r];
+                numAccountsList.Remove(accountNum); 
+            }
             ReadAccounts(accountNum);
         }
 
         private void label4_Click(object sender, EventArgs e)
         {
-            System.Diagnostics.Process.Start("http://www.newagesoldier.com");
+            System.Diagnostics.Process.Start("http://www.bing.com");
         }
 
         private void closeTimer_Tick(object sender, EventArgs e)
@@ -327,6 +337,33 @@ namespace bingRewards
                     i++;
                 }
             }           
+        }
+       /* private void clickshit() {
+            foreach (HtmlElement HtmlElement1 in webBrowser1.Document.Body.All) //Force post (login).
+            {
+                if (HtmlElement1.GetAttribute("class") == "b_algo")
+                    HtmlElement1.H2.SetAttribute("value", username);
+                if (HtmlElement1.GetAttribute("name") == "passwd")
+                    HtmlElement1.SetAttribute("value", password);
+                if (HtmlElement1.GetAttribute("value") == "Sign in")
+                    HtmlElement1.InvokeMember("click");
+            }
+        }*/
+        private void PauseBtn_Click(object sender, EventArgs e)
+        {
+            if (shutThisShitDown == false)
+            {
+                PauseBtn.Text = "Continue";
+                PauseBtn.ForeColor = System.Drawing.Color.Green;
+                shutThisShitDown = true;
+            }
+            else
+            {
+                PauseBtn.Text = "Pause";
+                PauseBtn.ForeColor = System.Drawing.Color.Red;
+                shutThisShitDown = false;
+                ReadAccounts(accountNum);
+            }
         }
     }
 }

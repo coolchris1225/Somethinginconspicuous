@@ -6,3 +6,11 @@
 \\fileshare\jdoupe\Desktop\BingRewards-master\BingRewards-master\bingRewards\obj\x86\Debug\bingRewards.csproj.GenerateResource.Cache
 \\fileshare\jdoupe\Desktop\BingRewards-master\BingRewards-master\bingRewards\obj\x86\Debug\bingRewards.exe
 \\fileshare\jdoupe\Desktop\BingRewards-master\BingRewards-master\bingRewards\obj\x86\Debug\bingRewards.pdb
+X:\local_html\BingRewards\bingRewards\obj\x86\Debug\bingRewards.exe
+X:\local_html\BingRewards\bingRewards\obj\x86\Debug\bingRewards.pdb
+X:\local_html\BingRewards\bingRewards\bin\Debug\bingRewards.exe
+X:\local_html\BingRewards\bingRewards\bin\Debug\bingRewards.pdb
+X:\local_html\BingRewards\bingRewards\obj\x86\Debug\bingRewards.csprojResolveAssemblyReference.cache
+X:\local_html\BingRewards\bingRewards\obj\x86\Debug\bingRewards.Form1.resources
+X:\local_html\BingRewards\bingRewards\obj\x86\Debug\bingRewards.Properties.Resources.resources
+X:\local_html\BingRewards\bingRewards\obj\x86\Debug\bingRewards.csproj.GenerateResource.Cache
