@@ -57,7 +57,7 @@ namespace bingRewards
             else
                 searchTimer.Interval = 100;
             if (fileExists(settingsFile) && Convert.ToInt32(ReadSettings("settings", "autostart")) >= 1)
-                ReadAccounts(accountNum);
+                startBtn.PerformClick();
             if (fileExists(settingsFile) && Convert.ToInt32(ReadSettings("settings", "hidebrowser")) >= 1)
                 webBrowser1.Visible = false;
             //MessageBox.Show("DEBUG: searchspeed=" + searchTimer.Interval.ToString() + " startspeed=" + startTimer.Interval.ToString());

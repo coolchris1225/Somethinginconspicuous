@@ -14,3 +14,11 @@ X:\local_html\BingRewards\bingRewards\obj\x86\Debug\bingRewards.csprojResolveAss
 X:\local_html\BingRewards\bingRewards\obj\x86\Debug\bingRewards.Form1.resources
 X:\local_html\BingRewards\bingRewards\obj\x86\Debug\bingRewards.Properties.Resources.resources
 X:\local_html\BingRewards\bingRewards\obj\x86\Debug\bingRewards.csproj.GenerateResource.Cache
+C:\Users\coolchris1225\Desktop\Somethinginconspicuous\bingRewards\obj\x86\Debug\bingRewards.exe
+C:\Users\coolchris1225\Desktop\Somethinginconspicuous\bingRewards\obj\x86\Debug\bingRewards.pdb
+C:\Users\coolchris1225\Desktop\Somethinginconspicuous\bingRewards\bin\Debug\bingRewards.exe
+C:\Users\coolchris1225\Desktop\Somethinginconspicuous\bingRewards\bin\Debug\bingRewards.pdb
+C:\Users\coolchris1225\Desktop\Somethinginconspicuous\bingRewards\obj\x86\Debug\bingRewards.csprojResolveAssemblyReference.cache
+C:\Users\coolchris1225\Desktop\Somethinginconspicuous\bingRewards\obj\x86\Debug\bingRewards.Form1.resources
+C:\Users\coolchris1225\Desktop\Somethinginconspicuous\bingRewards\obj\x86\Debug\bingRewards.Properties.Resources.resources
+C:\Users\coolchris1225\Desktop\Somethinginconspicuous\bingRewards\obj\x86\Debug\bingRewards.csproj.GenerateResource.Cache
