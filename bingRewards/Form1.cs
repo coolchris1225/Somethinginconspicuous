@@ -60,6 +60,11 @@ namespace bingRewards
                 startBtn.PerformClick();
             if (fileExists(settingsFile) && Convert.ToInt32(ReadSettings("settings", "hidebrowser")) >= 1)
                 webBrowser1.Visible = false;
+            if (fileExists(settingsFile) && Convert.ToInt32(ReadSettings("settings", "RandomizeAccountOrder")) >= 1)
+                checkBox1.Checked = true;
+            else
+                checkBox1.Checked = false;
+
             //MessageBox.Show("DEBUG: searchspeed=" + searchTimer.Interval.ToString() + " startspeed=" + startTimer.Interval.ToString());
         }
 
@@ -205,7 +210,7 @@ namespace bingRewards
             } 
             else {
                 webBrowser1.Navigate(searchURL + query, null, null, "User-Agent: Mozilla/5.0 (compatible; MSIE 6.0; Windows NT 5.1)");
-                //clickshit();
+                
             }
 
             if (webBrowser1.Url.ToString().Contains(@"?q="))
@@ -295,6 +300,8 @@ namespace bingRewards
             if (!webBrowser1.Url.ToString().Contains(@"?q="))
                 return;
             search();
+            if (checkBox2.Checked == true)
+                clickshit();
             searchTimer.Enabled = false;
             searchTimer.Interval = randomNumber(Convert.ToInt32(ReadSettings("settings", "searchspeedmin")), Convert.ToInt32(ReadSettings("settings", "searchspeedmax")));
         }
@@ -338,17 +345,11 @@ namespace bingRewards
                 }
             }           
         }
-       /* private void clickshit() {
-            foreach (HtmlElement HtmlElement1 in webBrowser1.Document.Body.All) //Force post (login).
-            {
-                if (HtmlElement1.GetAttribute("class") == "b_algo")
-                    HtmlElement1.H2.SetAttribute("value", username);
-                if (HtmlElement1.GetAttribute("name") == "passwd")
-                    HtmlElement1.SetAttribute("value", password);
-                if (HtmlElement1.GetAttribute("value") == "Sign in")
-                    HtmlElement1.InvokeMember("click");
-            }
-        }*/
+        private void clickshit() {
+            var bodyOfLinks = webBrowser1.Document.GetElementById("b_results").GetElementsByTagName("a");
+            bodyOfLinks[randomNumber(1,4)].InvokeMember("click");
+            
+        }
         private void PauseBtn_Click(object sender, EventArgs e)
         {
             if (shutThisShitDown == false)
@@ -365,5 +366,9 @@ namespace bingRewards
                 ReadAccounts(accountNum);
             }
         }
+
+
+
+
     }
 }
