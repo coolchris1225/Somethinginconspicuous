@@ -113,7 +113,7 @@ namespace bingRewards
                 ReadString(section, key, defaultValue.ToString()).Replace('.', decSep).Replace(',', decSep)
             );
         }
-        /*public void WriteString(String section, String key, String value)
+        public void WriteString(String section, String key, String value)
         {
             int sameKeyNum = -1;
             for (int i = 0; i < newValues.Count; i++)
@@ -126,7 +126,7 @@ namespace bingRewards
                 newValues.RemoveAt(sameKeyNum);
 
             newValues.Add(new sectKeyVal(section, key, value));
-        }*/
+        }
         public void Flush()
         {
             /* This is where all the magic is done
