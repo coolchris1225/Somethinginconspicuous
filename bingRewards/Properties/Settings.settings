@@ -53,8 +53,8 @@
     <Setting Name="timeStartEnable" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
     </Setting>
-    <Setting Name="Accounts" Type="System.String" Scope="User">
-      <Value Profile="(Default)" />
+    <Setting Name="pursueSearchOrder" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
     </Setting>
   </Settings>
 </SettingsFile>

@@ -23,3 +23,6 @@ C:\Users\coolchris1225\Desktop\Somethinginconspicuous\bingRewards\obj\x86\Debug\
 C:\Users\coolchris1225\Desktop\Somethinginconspicuous\bingRewards\obj\x86\Debug\bingRewards.Properties.Resources.resources
 C:\Users\coolchris1225\Desktop\Somethinginconspicuous\bingRewards\obj\x86\Debug\bingRewards.csproj.GenerateResource.Cache
 X:\local_html\BingRewards\bingRewards\bin\Debug\bingRewards.exe.config
+X:\local_html\BingRewards\bingRewards\bin\Debug\HtmlAgilityPack.dll
+X:\local_html\BingRewards\bingRewards\bin\Debug\HtmlAgilityPack.pdb
+X:\local_html\BingRewards\bingRewards\bin\Debug\HtmlAgilityPack.xml

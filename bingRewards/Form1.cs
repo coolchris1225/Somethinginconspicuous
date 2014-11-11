@@ -24,9 +24,14 @@ namespace bingRewards
         private bool shutThisShitDown = false;
         private string username;
         private string password;
+        private int desktopSearchNum = 0;
+        private int mobileSearchNum = 0;
+        private int desktopSearchCountDown = 0;
+        private int mobileSearchCountDown = 0;
         private int countDown = 0;
         private int accountNum = 0;
-        private List<int> numAccountsList = new List<int>();
+        private int accountNumIndex = 0;
+        private List<int> accountList = new List<int>();
         private bool mobile = false; //start with desktop
         string wordsFile = Application.StartupPath + Path.DirectorySeparatorChar + "words.txt";
         string accountsFile = Application.StartupPath + Path.DirectorySeparatorChar + "accounts.txt";
@@ -73,6 +78,7 @@ namespace bingRewards
             else
                 searchTimer.Interval = 100;
 
+            pursueSearchOrder.Checked = Properties.Settings.Default.pursueSearchOrder;
             autoClose.Checked = Properties.Settings.Default.autoClose;
             autoStart.Checked = Properties.Settings.Default.autoStart;
             mobileSearchesMin.Text = Convert.ToString(Properties.Settings.Default.mobileSearchesMin);
@@ -155,6 +161,7 @@ namespace bingRewards
             return builder.ToString();
         }
 
+
         private void ReadAccounts(int line)
         {
             try
@@ -175,6 +182,7 @@ namespace bingRewards
                         i++;
                     }
                 }
+                
                 //string content = File.ReadLines(accountsFile).ElementAt(line); //old way
                 string[] words = content.Split('/');
                 startBtn.Enabled = false;
@@ -184,7 +192,7 @@ namespace bingRewards
                 //InternetSetOption(IntPtr.Zero, 3, IntPtr.Zero, 0);
                 webBrowser1.Navigate(new Uri("https://login.live.com/logout.srf"));
             }
-            catch
+            catch //When There are no accounts left
             {
                 startTimer.Enabled = false;
                 startBtn.Enabled = true;
@@ -201,25 +209,24 @@ namespace bingRewards
             string query = GetRandomSentence(randomNumber(3,6));
             string searchURL = "http://bing.com/search?q=";
 
-            if (webBrowser1.Url.ToString().Contains(@"newagesoldier.com"))
-                return;
-
             if (webBrowser1.Url.ToString().Contains(@"bing.com/rewards/dashboard"))
             {
                 if (!skip)
                 {
-                    startTimer.Enabled = true;
+                    startTimer.Enabled = true; //This is where the timer starts
                     return;
                 }
             }
 
             if (!mobile)
             {
-                if (countDown == 1) //Change to mobile when done with desktop searching.
+                if (desktopSearchCountDown == 1) //Change to mobile when done with desktop searching.
                 {
+                    
+                    mobileSearchCountDown = randomNumber(Properties.Settings.Default.mobileSearchesMin, Properties.Settings.Default.mobileSearchesMax + 1);
                     mobile = true;
-
-                    countDown = randomNumber(Properties.Settings.Default.mobileSearchesMin, Properties.Settings.Default.mobileSearchesMax);
+                    desktopSearchCountDown = 0;
+                   
                 }
             }
 
@@ -238,18 +245,39 @@ namespace bingRewards
             {
                 webBrowser1.Navigate(searchURL + query, null, null, "User-Agent: Mozilla/5.0 (Linux; U; Android 2.2; en-gb; LG-P500 Build/FRF91) AppleWebKit/533.0 (KHTML, like Gecko) Version/4.0 Mobile Safari/533.1");
 
-                
 
-                if (countDown == 1) //We're on our last search. Reset to desktop.
+
+                if (mobileSearchCountDown == 1){
                     mobile = false;
+                    mobileSearchCountDown = 0;
+                    desktopSearchCountDown = 0;
+                    startTimer.Enabled = true;
+
+
+
+                } //We're on our last search. Reset to desktop.
+                    
+
+                    
+                    
             } 
             else {
                 webBrowser1.Navigate(searchURL + query, null, null, "User-Agent: Mozilla/5.0 (compatible; MSIE 6.0; Windows NT 5.1)");
                 
             }
 
-            if (webBrowser1.Url.ToString().Contains(@"?q="))
-                countDown = countDown - 1;
+            if (webBrowser1.Url.ToString().Contains(@"?q=")) {
+                if (!mobile)
+                {
+                    if (desktopSearchCountDown > 0)
+                    {
+                        desktopSearchCountDown = desktopSearchCountDown - 1;
+                    }
+                }
+                else {
+                    mobileSearchCountDown = mobileSearchCountDown - 1;
+                }
+            }
         }
 
         private void webBrowser1_ProgressChanged(object sender, WebBrowserProgressChangedEventArgs e)
@@ -260,6 +288,17 @@ namespace bingRewards
         private void webBrowser1_DocumentCompleted(object sender, WebBrowserDocumentCompletedEventArgs e)
         {
             stuckTimer.Enabled = false;
+            if (webBrowser1.Url.ToString().Contains(@"?q="))
+            {
+                if (pursueSearchOrder.Checked == true)
+                {
+                    if (webBrowser1.ReadyState == WebBrowserReadyState.Complete)
+                    {
+
+                        clickshit();
+                    }
+                }
+            }
             if (webBrowser1.Url.ToString() == "about:blank" || webBrowser1.Url.ToString() == "" || webBrowser1.Url == null || webBrowser1.Url.ToString().Contains(@"newagesoldier.com"))
                 return;
 
@@ -271,7 +310,9 @@ namespace bingRewards
             else
                 searchModeBox.Text = "desktop";
 
-            searchesLeftBox.Text = countDown.ToString();
+            mobileSearchesLeftBox.Text = mobileSearchCountDown.ToString();
+            desktopSearchesLeftBox.Text = desktopSearchCountDown.ToString();
+
             accountBox.Text = username;
 
             notesBox.Text = webBrowser1.Url.ToString();
@@ -295,39 +336,35 @@ namespace bingRewards
             if (webBrowser1.Url.ToString().Contains(@"bing.com/Passport") || webBrowser1.Url.ToString().Contains(@"login.live.com/gls") || webBrowser1.Url.ToString().Contains(@"login.live.com/logout") || webBrowser1.Url.ToString().Contains(@"bing.com/secure") || webBrowser1.Url.ToString().Contains(@"bing.com/rewards/dashboard") || webBrowser1.Url.ToString().Contains(@"msn.com"))
                 return; //let timer finish the login process before reading another account OR going to the next search.
 
+
+      
+
             if (!webBrowser1.Url.ToString().Contains(@"?q="))
                 return;
 
-            if (countDown >= 1)
+            if (desktopSearchCountDown >= 1 || mobileSearchCountDown >= 1)
                 searchTimer.Enabled = true;
+
             else
-                if(shutThisShitDown == false)
+            {
+                if (shutThisShitDown == false)
                     ReadAccounts(accountNum);
+            }
+               
         }
 
         private void startTimer_Tick(object sender, EventArgs e)
         { //this is just so we can debug and watch to make sure we are really logged in.
             if (!webBrowser1.Url.ToString().Contains(@"bing.com/rewards/dashboard"))
                 return;
-            countDown = randomNumber(Properties.Settings.Default.desktopSearchesMin, Properties.Settings.Default.desktopSearchesMax);
+            desktopSearchNum = randomNumber(Properties.Settings.Default.desktopSearchesMin, Properties.Settings.Default.desktopSearchesMax + 1);
+            desktopSearchCountDown = desktopSearchNum;
             search(true);
-            if (numAccountsList.Count != 0)
-            {
-                int r = randomNumber(0, numAccountsList.Count - 1);
-                accountNum = numAccountsList[r];
-                numAccountsList.Remove(accountNum);
-            }
-            else if (randomizeAccountOrder.Checked == true)
-            {
-                if (autoClose.Checked == true)
-                {
-                    Application.Exit();
-                }
-                else
-                    accountNum = 9001;
-                    
-            }
-            accountNum = accountNum + 1; //next account
+            accountNumIndex++; //next account
+            if (accountNumIndex < accountList.Count())
+                accountNum = accountList[accountNumIndex];
+            else
+                accountNum = accountNumIndex;
         }
 
         private void searchTimer_Tick(object sender, EventArgs e)
@@ -335,29 +372,20 @@ namespace bingRewards
             if (!webBrowser1.Url.ToString().Contains(@"?q="))
                 return;
             search();
-            if (pursueSearchOrder.Checked == true)
-            {
-                if (webBrowser1.ReadyState != WebBrowserReadyState.Complete)
-                {
-                    
-                    clickshit();
-                }
-                    
-  
-            }
+            searchTimer.Interval = randomNumber(Properties.Settings.Default.searchSpeedMin, Properties.Settings.Default.searchSpeedMax);
+            searchTimerIntervalLbl.Text = ("Search Timer interval: " + Convert.ToString(searchTimer.Interval / 1000) + "Seconds");
+            decimal percentage = ((decimal)accountNum / listBox1.Items.Count) * 100;
+            progressBar1.Value = Convert.ToInt16(percentage); 
             searchTimer.Enabled = false;
-            searchTimer.Interval = randomNumber(Properties.Settings.Default.searchSpeedMax, Properties.Settings.Default.searchSpeedMax);
+
         }
 
         private void startBtn_Click(object sender, EventArgs e)
         {
+            createListOfAccountNumbers();
             if (randomizeAccountOrder.Checked == true)
-            { 
-                createListOfAccountNumbers();
-                int r = randomNumber(0, numAccountsList.Count - 1);
-                accountNum = numAccountsList[r];
-                numAccountsList.Remove(accountNum); 
-            }
+                ShuffleList();
+            accountNum = accountList[accountNumIndex];
             ReadAccounts(accountNum);
         }
 
@@ -390,20 +418,30 @@ namespace bingRewards
             using (StreamReader r = new StreamReader(accountsFile))
             {
                 int i = 0;
-                string rLine;
-                while ((rLine = r.ReadLine()) != null)
+                while (r.ReadLine() != null)
                 {
-                    numAccountsList.Add(i);
+                    accountList.Add(i);
                     i++;
                 }
-            }           
+            }
         }
+
         private void clickshit() {
-            MessageBox.Show("it Twerked!");
-            var bodyOfLinks = webBrowser1.Document.GetElementById("b_results").GetElementsByTagName("a");
-            bodyOfLinks[randomNumber(1,4)].InvokeMember("click");
+            
+            //HtmlAgilityPack.HtmlDocument docta = new HtmlAgilityPack.HtmlDocument();
+            // MessageBox.Show("it Twerked!");
+            // HtmlElementCollection bodyOfLinks = webBrowser1.Document.GetElementById("b_results").GetElementsByTagName("a");
+            //webBrowser1.Document = bodyOfLinks;
+            //links = bodyOfLinks.GetElementsByTagName("a");
+            //bodyOfLinks[randomNumber(1,4)].InvokeMember("click");
+            //var doc = new DocumentNode.Load("http://MYURL.com");
+            //doc.DocumentNode.SelectSingleNode("name").SetAttributeValue("value", "MyUsername");
+            //doc.DocumentNode.SelectSingleNode("password").SetAttributeValue("value", "MyPassword");
+            //doc.GetElementById("submit_signin").Click();
             
         }
+
+
         private void PauseBtn_Click(object sender, EventArgs e)
         {
             if (shutThisShitDown == false)
@@ -448,6 +486,19 @@ namespace bingRewards
             }
             return (Convert.ToString(hours) + Convert.ToString(minuets));
         }
+        private void ShuffleList()
+        {
+            Random rng = new Random();
+            int n = accountList.Count;
+            while (n > 1)
+            {
+                n--;
+                int k = rng.Next(n + 1);
+                int value = accountList[k];
+                accountList[k] = accountList[n];
+                accountList[n] = value;
+            }
+        }
         private void saveSettings_Click(object sender, EventArgs e)
         {
             randomTimeStringVariable = randomTimeString(Properties.Settings.Default.timeStartHours, Properties.Settings.Default.timeStartMinutes, Properties.Settings.Default.timeVariance);
@@ -468,6 +519,7 @@ namespace bingRewards
             Properties.Settings.Default.timeStartMinutes = Convert.ToInt32(timeStartMinutes.Value);
             Properties.Settings.Default.timeVariance = Convert.ToInt32(timeVariance.Text);
             Properties.Settings.Default.searchType = searchType.Text;
+            Properties.Settings.Default.pursueSearchOrder = pursueSearchOrder.Checked;
             Properties.Settings.Default.Save();
             
         }
@@ -476,5 +528,7 @@ namespace bingRewards
         {
             timeChecker.Enabled = timeStartEnable.Checked;
         }
+
+
     }
 }

@@ -32,7 +32,7 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
-            this.searchesLeftBox = new System.Windows.Forms.TextBox();
+            this.mobileSearchesLeftBox = new System.Windows.Forms.TextBox();
             this.searchModeBox = new System.Windows.Forms.TextBox();
             this.accountLabel = new System.Windows.Forms.Label();
             this.accountBox = new System.Windows.Forms.TextBox();
@@ -55,6 +55,7 @@
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabBrowser = new System.Windows.Forms.TabPage();
             this.tabSettings = new System.Windows.Forms.TabPage();
+            this.timeStartEnable = new System.Windows.Forms.CheckBox();
             this.MinutesLabel = new System.Windows.Forms.Label();
             this.timeStartLabel = new System.Windows.Forms.Label();
             this.timeStartMinutes = new System.Windows.Forms.NumericUpDown();
@@ -85,7 +86,9 @@
             this.randomizeAccountOrder = new System.Windows.Forms.CheckBox();
             this.autoClose = new System.Windows.Forms.CheckBox();
             this.testLBL = new System.Windows.Forms.Label();
-            this.timeStartEnable = new System.Windows.Forms.CheckBox();
+            this.searchTimerIntervalLbl = new System.Windows.Forms.Label();
+            this.label4 = new System.Windows.Forms.Label();
+            this.desktopSearchesLeftBox = new System.Windows.Forms.TextBox();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.tabControl1.SuspendLayout();
@@ -98,33 +101,33 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(365, 9);
+            this.label1.Location = new System.Drawing.Point(235, 9);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(35, 13);
+            this.label1.Size = new System.Drawing.Size(110, 13);
             this.label1.TabIndex = 1;
-            this.label1.Text = "# Left";
+            this.label1.Text = "Mobile Searches Left:";
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(235, 9);
+            this.label2.Location = new System.Drawing.Point(489, 604);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(34, 13);
             this.label2.TabIndex = 2;
             this.label2.Text = "Mode";
             // 
-            // searchesLeftBox
+            // mobileSearchesLeftBox
             // 
-            this.searchesLeftBox.Enabled = false;
-            this.searchesLeftBox.Location = new System.Drawing.Point(402, 6);
-            this.searchesLeftBox.Name = "searchesLeftBox";
-            this.searchesLeftBox.Size = new System.Drawing.Size(37, 20);
-            this.searchesLeftBox.TabIndex = 3;
+            this.mobileSearchesLeftBox.Enabled = false;
+            this.mobileSearchesLeftBox.Location = new System.Drawing.Point(345, 7);
+            this.mobileSearchesLeftBox.Name = "mobileSearchesLeftBox";
+            this.mobileSearchesLeftBox.Size = new System.Drawing.Size(37, 20);
+            this.mobileSearchesLeftBox.TabIndex = 3;
             // 
             // searchModeBox
             // 
             this.searchModeBox.Enabled = false;
-            this.searchModeBox.Location = new System.Drawing.Point(271, 6);
+            this.searchModeBox.Location = new System.Drawing.Point(529, 601);
             this.searchModeBox.Name = "searchModeBox";
             this.searchModeBox.Size = new System.Drawing.Size(88, 20);
             this.searchModeBox.TabIndex = 4;
@@ -149,7 +152,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(447, 9);
+            this.label3.Location = new System.Drawing.Point(550, 9);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(45, 13);
             this.label3.TabIndex = 7;
@@ -180,10 +183,10 @@
             // notesBox
             // 
             this.notesBox.Enabled = false;
-            this.notesBox.Location = new System.Drawing.Point(494, 6);
+            this.notesBox.Location = new System.Drawing.Point(601, 6);
             this.notesBox.Multiline = true;
             this.notesBox.Name = "notesBox";
-            this.notesBox.Size = new System.Drawing.Size(490, 21);
+            this.notesBox.Size = new System.Drawing.Size(383, 21);
             this.notesBox.TabIndex = 10;
             this.notesBox.Text = "If you see windows login page, do not fill it in or login. The system will login " +
     "itself. The search results will come up with 0 results most of the time. Ignore " +
@@ -299,18 +302,18 @@
             // 
             // tabBrowser
             // 
+            this.tabBrowser.Controls.Add(this.desktopSearchesLeftBox);
+            this.tabBrowser.Controls.Add(this.label4);
             this.tabBrowser.Controls.Add(this.accountBox);
             this.tabBrowser.Controls.Add(this.accountLabel);
             this.tabBrowser.Controls.Add(this.listBox2);
             this.tabBrowser.Controls.Add(this.groupBox2);
-            this.tabBrowser.Controls.Add(this.searchModeBox);
             this.tabBrowser.Controls.Add(this.label1);
             this.tabBrowser.Controls.Add(this.groupBox3);
             this.tabBrowser.Controls.Add(this.AmazonBtn);
-            this.tabBrowser.Controls.Add(this.label2);
             this.tabBrowser.Controls.Add(this.groupBox1);
             this.tabBrowser.Controls.Add(this.PauseBtn);
-            this.tabBrowser.Controls.Add(this.searchesLeftBox);
+            this.tabBrowser.Controls.Add(this.mobileSearchesLeftBox);
             this.tabBrowser.Controls.Add(this.label3);
             this.tabBrowser.Controls.Add(this.notesBox);
             this.tabBrowser.Controls.Add(this.startBtn);
@@ -361,6 +364,17 @@
             this.tabSettings.TabIndex = 1;
             this.tabSettings.Text = "Settings";
             this.tabSettings.UseVisualStyleBackColor = true;
+            // 
+            // timeStartEnable
+            // 
+            this.timeStartEnable.AutoSize = true;
+            this.timeStartEnable.Location = new System.Drawing.Point(703, 156);
+            this.timeStartEnable.Name = "timeStartEnable";
+            this.timeStartEnable.Size = new System.Drawing.Size(59, 17);
+            this.timeStartEnable.TabIndex = 66;
+            this.timeStartEnable.Text = "Enable";
+            this.timeStartEnable.UseVisualStyleBackColor = true;
+            this.timeStartEnable.CheckedChanged += new System.EventHandler(this.timeStartEnable_CheckedChanged);
             // 
             // MinutesLabel
             // 
@@ -627,25 +641,43 @@
             this.testLBL.TabIndex = 31;
             this.testLBL.Text = "label4";
             // 
-            // timeStartEnable
+            // searchTimerIntervalLbl
             // 
-            this.timeStartEnable.AutoSize = true;
-            this.timeStartEnable.Location = new System.Drawing.Point(703, 156);
-            this.timeStartEnable.Name = "timeStartEnable";
-            this.timeStartEnable.Size = new System.Drawing.Size(59, 17);
-            this.timeStartEnable.TabIndex = 66;
-            this.timeStartEnable.Text = "Enable";
-            this.timeStartEnable.UseVisualStyleBackColor = true;
-            this.timeStartEnable.CheckedChanged += new System.EventHandler(this.timeStartEnable_CheckedChanged);
+            this.searchTimerIntervalLbl.AutoSize = true;
+            this.searchTimerIntervalLbl.Location = new System.Drawing.Point(12, 604);
+            this.searchTimerIntervalLbl.Name = "searchTimerIntervalLbl";
+            this.searchTimerIntervalLbl.Size = new System.Drawing.Size(111, 13);
+            this.searchTimerIntervalLbl.TabIndex = 32;
+            this.searchTimerIntervalLbl.Text = "Search Timer Interval:";
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(391, 9);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(119, 13);
+            this.label4.TabIndex = 20;
+            this.label4.Text = "Desktop Searches Left:";
+            // 
+            // desktopSearchesLeftBox
+            // 
+            this.desktopSearchesLeftBox.Enabled = false;
+            this.desktopSearchesLeftBox.Location = new System.Drawing.Point(507, 6);
+            this.desktopSearchesLeftBox.Name = "desktopSearchesLeftBox";
+            this.desktopSearchesLeftBox.Size = new System.Drawing.Size(37, 20);
+            this.desktopSearchesLeftBox.TabIndex = 21;
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1307, 655);
+            this.Controls.Add(this.searchTimerIntervalLbl);
             this.Controls.Add(this.testLBL);
             this.Controls.Add(this.tabControl1);
             this.Controls.Add(this.progressBar1);
+            this.Controls.Add(this.searchModeBox);
+            this.Controls.Add(this.label2);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "Form1";
@@ -669,7 +701,7 @@
 
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.TextBox searchesLeftBox;
+        private System.Windows.Forms.TextBox mobileSearchesLeftBox;
         private System.Windows.Forms.TextBox searchModeBox;
         private System.Windows.Forms.Label accountLabel;
         private System.Windows.Forms.TextBox accountBox;
@@ -723,6 +755,9 @@
         private System.Windows.Forms.Label MinutesLabel;
         private System.Windows.Forms.Label testLBL;
         private System.Windows.Forms.CheckBox timeStartEnable;
+        private System.Windows.Forms.Label searchTimerIntervalLbl;
+        private System.Windows.Forms.TextBox desktopSearchesLeftBox;
+        private System.Windows.Forms.Label label4;
     }
 }
 
