@@ -26,3 +26,7 @@ X:\local_html\BingRewards\bingRewards\bin\Debug\bingRewards.exe.config
 X:\local_html\BingRewards\bingRewards\bin\Debug\HtmlAgilityPack.dll
 X:\local_html\BingRewards\bingRewards\bin\Debug\HtmlAgilityPack.pdb
 X:\local_html\BingRewards\bingRewards\bin\Debug\HtmlAgilityPack.xml
+C:\Users\coolchris1225\Desktop\Somethinginconspicuous\bingRewards\bin\Debug\bingRewards.exe.config
+C:\Users\coolchris1225\Desktop\Somethinginconspicuous\bingRewards\bin\Debug\HtmlAgilityPack.dll
+C:\Users\coolchris1225\Desktop\Somethinginconspicuous\bingRewards\bin\Debug\HtmlAgilityPack.pdb
+C:\Users\coolchris1225\Desktop\Somethinginconspicuous\bingRewards\bin\Debug\HtmlAgilityPack.xml

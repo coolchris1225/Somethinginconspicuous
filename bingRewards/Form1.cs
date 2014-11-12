@@ -223,7 +223,7 @@ namespace bingRewards
                 if (desktopSearchCountDown == 1) //Change to mobile when done with desktop searching.
                 {
                     
-                    mobileSearchCountDown = randomNumber(Properties.Settings.Default.mobileSearchesMin, Properties.Settings.Default.mobileSearchesMax + 1);
+                    
                     mobile = true;
                     desktopSearchCountDown = 0;
                    
@@ -275,7 +275,8 @@ namespace bingRewards
                     }
                 }
                 else {
-                    mobileSearchCountDown = mobileSearchCountDown - 1;
+                    if (mobileSearchCountDown > 0 )
+                        mobileSearchCountDown = mobileSearchCountDown - 1;
                 }
             }
         }
@@ -357,14 +358,19 @@ namespace bingRewards
         { //this is just so we can debug and watch to make sure we are really logged in.
             if (!webBrowser1.Url.ToString().Contains(@"bing.com/rewards/dashboard"))
                 return;
-            desktopSearchNum = randomNumber(Properties.Settings.Default.desktopSearchesMin, Properties.Settings.Default.desktopSearchesMax + 1);
-            desktopSearchCountDown = desktopSearchNum;
+           
             search(true);
             accountNumIndex++; //next account
             if (accountNumIndex < accountList.Count())
                 accountNum = accountList[accountNumIndex];
             else
                 accountNum = accountNumIndex;
+
+            desktopSearchNum = randomNumber(Properties.Settings.Default.desktopSearchesMin, Properties.Settings.Default.desktopSearchesMax + 1);
+            desktopSearchCountDown = desktopSearchNum;
+            mobileSearchNum = randomNumber(Properties.Settings.Default.mobileSearchesMin, Properties.Settings.Default.mobileSearchesMax + 1);
+            mobileSearchCountDown = mobileSearchNum;
+
         }
 
         private void searchTimer_Tick(object sender, EventArgs e)
@@ -374,8 +380,14 @@ namespace bingRewards
             search();
             searchTimer.Interval = randomNumber(Properties.Settings.Default.searchSpeedMin, Properties.Settings.Default.searchSpeedMax);
             searchTimerIntervalLbl.Text = ("Search Timer interval: " + Convert.ToString(searchTimer.Interval / 1000) + "Seconds");
-            decimal percentage = ((decimal)accountNum / listBox1.Items.Count) * 100;
-            progressBar1.Value = Convert.ToInt16(percentage); 
+            decimal percentage = ((decimal)(accountNum -1) / listBox1.Items.Count) * 100;
+            decimal searchNumTotal = desktopSearchNum + mobileSearchNum;
+            decimal countDownTotal = desktopSearchCountDown + mobileSearchCountDown;
+            decimal countUpTotal = searchNumTotal - countDownTotal;
+            label5.Text = ("Current Account: " + Convert.ToString(accountNum) + "\n" + "searchNumTotal: " + Convert.ToString(searchNumTotal) + "\n" + "countUpTotal: " + Convert.ToString(countUpTotal) + "\n" + "percentage: " + Convert.ToString(percentage));
+            if ((countUpTotal / (desktopSearchNum + mobileSearchNum)) != 0) ;
+            progressBar1.Value = Convert.ToInt16((((decimal)(countUpTotal / (desktopSearchNum + mobileSearchNum)) * ((decimal) 1 / listBox1.Items.Count) * 100)) + percentage); 
+            
             searchTimer.Enabled = false;
 
         }
@@ -528,6 +540,12 @@ namespace bingRewards
         {
             timeChecker.Enabled = timeStartEnable.Checked;
         }
+
+        private void debugMe() {
+            
+        
+        }
+
 
 
     }
